@@ -69,7 +69,7 @@ def main():
     st.markdown("### 🌟 나만의 특별한 사진 업로드 🌟")
     
     uploaded_file = st.file_uploader(
-        "혜인 백일 사진을 업로드해주세요 👶", 
+        "혜인이 사진을 업로드해주세요 👶", 
         type=['png', 'jpeg', 'jpg'], 
         help="최대 10MB까지 업로드 가능합니다."
     )
