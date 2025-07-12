@@ -1,19 +1,32 @@
 import streamlit as st
+import requests
 
-st.title("귀여운 포켓몬 실사 이미지")
-st.write("실제로 존재하는 듯한 귀여운 포켓몬 이미지 5개를 보여줍니다.")
+def is_valid_image_url(url):
+    try:
+        response = requests.head(url, timeout=5)
+        return response.status_code == 200 and 'image' in response.headers.get('Content-Type', '')
+    except:
+        return False
 
-# 実際に存在するような、または公開されている可愛いポケモン画像のURL
-# These URLs are examples. You might want to find more diverse or higher-quality images.
-image_urls = [
-    "https://assets.nintendo.com/image/upload/ar_16:9,b_white,c_pad,dpr_2.0,f_auto,q_auto,w_500/ncom/en_US/articles/2022/pokemon-scarlet-and-pokemon-violet-launch-on-nintendo-switch-november-18/230105_PokemonScarletViolet_Thumbnail", # 피카츄
-    "https://assets.nintendo.com/image/upload/ar_16:9,b_white,c_pad,dpr_2.0,f_auto,q_auto,w_500/ncom/en_US/articles/2022/pokemon-scarlet-and-pokemon-violet-launch-on-nintendo-switch-november-18/230105_PokemonScarletViolet_Body_02", # 냐오하
-    "https://assets.nintendo.com/image/upload/ar_16:9,b_white,c_pad,dpr_2.0,f_auto,q_auto,w_500/ncom/en_US/articles/2022/pokemon-scarlet-and-pokemon-violet-launch-on-nintendo-switch-november-18/230105_PokemonScarletViolet_Body_03", # 뜨아거
-    "https://assets.nintendo.com/image/upload/ar_16:9,b_white,c_pad,dpr_2.0,f_auto,q_auto,w_500/ncom/en_US/articles/2022/pokemon-scarlet-and-pokemon-violet-launch-on-nintendo-switch-november-18/230105_PokemonScarletViolet_Body_04", # 꾸왁스
-    "https://assets.nintendo.com/image/upload/ar_16:9,b_white,c_pad,dpr_2.0,f_auto,q_auto,w_500/ncom/en_US/articles/2022/pokemon-scarlet-and-pokemon-violet-launch-on-nintendo-switch-november-18/230105_PokemonScarletViolet_Body_05"  # 레전드 아르세우스 포켓몬 (히스이 가디)
-]
+def main():
+    st.title("귀여운 포켓몬 이미지")
+    
+    cute_pokemon_urls = [
+        "https://assets.pokemon.com/assets/cms2/img/pokedex/full/025.png",  # 피카츄
+        "https://assets.pokemon.com/assets/cms2/img/pokedex/full/133.png",  # 이브이
+        "https://assets.pokemon.com/assets/cms2/img/pokedex/full/039.png",  # 푸린
+        "https://assets.pokemon.com/assets/cms2/img/pokedex/full/174.png",  # 토게피
+        "https://assets.pokemon.com/assets/cms2/img/pokedex/full/190.png"   # 꼬르곤
+    ]
+    
+    valid_urls = [url for url in cute_pokemon_urls if is_valid_image_url(url)]
+    
+    if len(valid_urls) < 5:
+        st.warning("일부 이미지 URL에 문제가 있습니다.")
+    
+    for idx, url in enumerate(valid_urls, 1):
+        st.subheader(f"포켓몬 이미지 {idx}")
+        st.image(url, use_column_width=True)
 
-for url in image_urls:
-    st.image(url, caption="귀여운 포켓몬")
-
-st.write("출처: 닌텐도 공식 웹사이트 및 게임 홍보 자료")
+if __name__ == "__main__":
+    main()
