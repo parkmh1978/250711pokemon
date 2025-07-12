@@ -98,3 +98,10 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+    st.success("### 🌟 우리혜인이 너무 귀엽죠? 🌟")
+
+    st.subheader("직접 다운로드해서, github에 업로드한 이미지")
+    st.image("혜인백일.jpg", use_container_width=True)
+
+
