@@ -26,7 +26,7 @@ def main():
     
     for idx, url in enumerate(valid_urls, 1):
         st.subheader(f"포켓몬 이미지 {idx}")
-        st.image(url, use_column_width=True)
+        st.image(url, use_container_width=True)  # 변경된 부분
 
 if __name__ == "__main__":
     main()
