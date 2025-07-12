@@ -81,6 +81,7 @@ if __name__ == "__main__":
         type=['png', 'jpeg', 'jpg'], 
         help="최대 10MB까지 업로드 가능합니다."
     )
+
     
     # 이미지 처리
     if uploaded_file is not None:
