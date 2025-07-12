@@ -85,7 +85,22 @@ def main():
             
             # 추가 정보 입력 칸
             baby_name = st.text_input("아기 이름을 알려주세요", placeholder="혜인")
-            birthday = st.date_input("백일 날짜를 선택해주세요")
+            
+            # 날짜 선택 범위를 2009년 1월 1일 이후로 제한
+            min_date = date(2009, 1, 1)
+            max_date = date.today()
+            
+            birthday = st.date_input(
+                "백일 날짜를 선택해주세요", 
+                min_value=min_date,
+                max_value=max_date,
+                value=min_date
+            )
+            
+            # 선택된 날짜 유효성 검사
+            if birthday:
+                age_days = (date.today() - birthday).days
+                st.write(f"🎈 백일까지 {age_days}일이 지났어요!")
             
             # 추가 설명 입력
             description = st.text_area("혜인이의 특별한 점을 알려주세요", 
