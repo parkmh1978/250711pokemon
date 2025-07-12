@@ -60,11 +60,41 @@ def main():
                 st.write(info['description'])
                 st.write(f"타입: {info['type']}")
                 
-                # 랜덤 버튼 추가
                 if st.button(f"{name} 좋아요!", key=name):
                     st.balloons()
     
     st.markdown("### 🌟 당신의 귀여운 포켓몬은 무엇인가요? 🌟")
+
+    # 이미지 업로드 섹션
+    st.markdown("### 🌟 나만의 특별한 사진 업로드 🌟")
+    
+    uploaded_file = st.file_uploader(
+        "혜인 백일 사진을 업로드해주세요 👶", 
+        type=['png', 'jpeg', 'jpg'], 
+        help="최대 10MB까지 업로드 가능합니다."
+    )
+    
+    if uploaded_file is not None:
+        # 이미지 용량 제한 (10MB)
+        if uploaded_file.size > 10 * 1024 * 1024:
+            st.error("이미지 크기가 너무 큽니다. 10MB 이하로 업로드해주세요.")
+        else:
+            # 이미지 표시
+            st.subheader("🎉 업로드된 혜인이 사진 🎉")
+            st.image(uploaded_file, use_container_width=True)
+            
+            # 추가 정보 입력 칸
+            baby_name = st.text_input("아기 이름을 알려주세요", placeholder="혜인")
+            birthday = st.date_input("백일 날짜를 선택해주세요")
+            
+            # 추가 설명 입력
+            description = st.text_area("혜인이의 특별한 점을 알려주세요", 
+                                       placeholder="예: 웃음이 너무 귀여워요!")
+            
+            # 공유 버튼
+            if st.button("📸 혜인이 사진 공유하기"):
+                st.success(f"{baby_name}의 소중한 순간을 축하합니다! 🎊")
+                st.balloons()
 
 if __name__ == "__main__":
     main()
